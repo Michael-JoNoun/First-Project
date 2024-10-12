@@ -1,0 +1,212 @@
+
+<html> <h1>
+  <style>
+    body{
+      background-color: gray;
+    }
+  a{text-decoration:none;}
+  .header{
+  border:solid 1px;
+  margin-left : 70%;
+  padding:7px;
+  }
+  td{
+   padding: 5px;
+  }
+  .icons{
+  width:688px;
+  height:50px;
+  margin-left:26.5%;
+  margin-top: 90px;
+  overflow-y: hidden;
+  padding-left: 20px;
+  /* margin-top: 20px; */
+  }
+  .icon{
+    margin-left:2px;
+  border:solid black 1px;
+  width:70px;
+  height:49px;
+  display:inline-block;
+  }
+  .imgIcon{
+  width:70px;
+  height:49px; 
+  }
+  .suggest{
+    margin-top: 3px;
+    border:solid black 2px;
+    width:688px;
+    height:350px;
+    margin-left:27%; 
+    overflow: hidden;
+    display: flex; 
+    }
+    .suggestions{
+      width:688px;
+      height:350px;
+      
+    }
+    .simg{
+      width:688px;
+      height:350px;
+    }
+  .games{
+    padding:10px;
+    width:150px;
+    height:190px;
+    border:solid black 1px;
+    display:inline-block;
+    margin:1px
+  }
+  .imgGames{
+    width:150px;
+    height:190px;
+  }
+  .gameHolder{
+    border:solid black 2px;
+    width:352px;
+    height:435px;
+  }
+ .filters{
+  border:solid black 2px;
+  margin-left:27%;
+  width:150px;
+  height:40px;
+  border-radius:20px;
+  }
+
+  .popGameHolder{
+  background-color: rgb(112, 107, 107);
+    width:170px;
+    height:430px;
+  }
+  .playable{
+    padding-left: 10px;
+    display:block;
+    width:150px;
+    height:190px;
+  }
+  .weather{
+    margin-top:5% ;
+    margin-left:1000px;
+    width:300px;
+    height:80px
+  }
+  .arrowLeft{
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    border-radius: 100px;
+    margin-top: 70px;
+    margin-left: 0px;
+    z-index: 1;
+  }
+  .arrowRight{
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    border-radius: 100px;
+    margin-top: 70px;
+    margin-left: 320px;
+    z-index: 1;
+  }
+  </style>
+ <script language="javascript">
+  var categories = [{id:1 , name:"cars" , icons :["icon1-1", "icon1-2", "icon1-3", "icon1-4"]} ,
+    {id:2 , name:"cooking" , icons :["icon2-1", "icon2-2", "icon2-3", "icon2-4"]},
+    {id:3,name:"shooting" , icons :["icon3-1", "icon3-2", "icon3-3", "icon3-4"]},
+    {id:4,name:"racing" , icons :["icon4-1", "icon4-2", "icon4-3", "icon4-4"]},
+    {id:5,name:"dressUp" , icons :["icon5-1", "icon5-2", "icon5-3", "icon5-4"]},
+    {id:6,name:"puzzle" , icons :["icon6-1", "icon6-2", "icon6-3", "icon6-4"]},
+    {id:7,name:"kids" , icons :["icon7-1", "icon7-2", "icon7-3", "icon7-4"]},
+    {id:8,name:"strategy" , icons :["icon8-1", "icon8-2", "icon8-3", "icon8-4"]},
+    {id:9,name:"action" , icons :["icon9-1", "icon9-2", "icon9-3", "icon9-4"]},
+    {id:10,name:"multiplayer" , icons :["icon10-1", "icon10-2", "icon10-3", "icon10-4"]},
+    {id:11,name:"girl" , icons :["icon11-1", "icon11-2", "icon11-3", "icon:11-4"]},
+    ] ;
+    window.onload = function() {
+    var str = "";
+    for (var i = 0; i<categories.length;i++)
+    {
+     str+="<div class=\"icon\"onclick=\"displayGames("+i+")\"> <img class=\"imgIcon\"src =\""+categories[i].name +".png\"> + </div>";
+    }
+    document.getElementById("icons").innerHTML = str;
+    }
+    function displayGames(i){
+      var games = categories[i].icons ;
+      var str = "";
+      for(var j=0;j<games.length;j++){
+        str+="<div class=\"games\"> <img class=\"imgGames\"src =\""+games[j] +".png\"> +  </div>";
+      }
+      document.getElementById("gameHolder").innerHTML=str ;
+    }
+ var s = 2
+    function moveLeft(){
+       if (s==1) {}
+       else{   s--
+        console.log(s)
+        document.getElementById("img").src= "suggestion"+s+".png"
+        if(s==1) document.getElementById("l").innerHTML=""
+ document.getElementById("r").innerHTML=" <img onclick=\"moveRight()\" class=\"arrowRight\" src=\"arrowRight.png\"> "
+       } 
+    }
+    function moveRight(){
+      if (s==3) {}
+       else{    s++
+         console.log(s)
+         document.getElementById("img").src= "suggestion"+s+".png"
+         if(s==3) document.getElementById("r").innerHTML=""
+         document.getElementById("l").innerHTML=" <img onclick=\"moveLeft()\" class=\"arrowLeft\" src=\"arrowLeft.png\"> "
+       } 
+      }
+ </script>
+  <table class="header">
+  <tr> 
+  <td style=" border-top: solid 10px blue;"> <a href="Project.html">Games </a> </td>
+  <td> <a href="AboutUs.html">About Us </a> </td>
+  <td> <a href="ContactUs.html">Contact Us </a> </td>
+  </tr>
+  </table>  </h1>
+
+<body >
+
+  <div style="width:100px; margin-left: 27%;">
+  <img  src="logo.jpg" width="170" height="130">
+  </div>
+  
+  <div id="icons" class="icons">
+
+</div>
+
+   <div class="suggest">
+      <div id="l" class="arrowLeft"> <img onclick="moveLeft()" class="arrowLeft" src="arrowLeft.png"> </div>
+       <div class="suggestions"> <img class="simg" id="img" src="suggestion2.png"> </div> 
+      <div id="r" class="arrowRight"> <img onclick="moveRight()" class="arrowRight" src="arrowRight.png"></div>
+ </div> 
+
+<table style="margin-left:30%;width:400px;height:35px;border:solid black 2px;">  
+ <tr><td>filters </td>
+   <td class="filters"></td> 
+   <td class="filters"></td> 
+ </tr>
+</table>
+<br><br>
+<p style="margin-left:27%">511 Games Available </p>
+<table style="margin-left:27%"><tr><td><div id="gameHolder" class="gameHolder">
+  <div class="games"><img class="imgGames" src="icon1-1.png"></div>
+  <div class="games"><img class="imgGames" src="icon7-1.png"></div>
+  <div class="games"><img class="imgGames" src="icon3-1.png"></div>
+  <div class="games"><img class="imgGames" src="icon4-1.png"></div>
+</div></td>
+  <td style="width:100px"></td>
+  <td> 
+<div class="popGameHolder"> <b>Most Popular</b>
+   <div style="padding-top:10px">  <a href="Tetris.html"> <img class="playable" src="tetris.png"> </a> </div>
+   <div style="padding-top:10px">  <a href="Snake.html"><img class="playable" src="snake.png"></imgclass></a> </div>
+</div> </td> </tr></table>
+<iframe class="weather" src="https://www.accuweather.com/fr/lb/beirut/227342/daily-weather-forecast/227342"> </iframe>
+ 
+  
+  </body>
+   </html>

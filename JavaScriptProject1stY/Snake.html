@@ -1,0 +1,184 @@
+<html>
+  <style> 
+     a{text-decoration:none;}
+  .header{
+  border:solid 1px;
+  margin-left : 70%;
+  padding:7px;
+  }
+  body{
+    background-color: gray;
+  }
+  td{
+   padding: 5px;
+  }
+  .board{
+    width:520px;
+    height:300px;
+    background-color:rgb(3, 3, 3); 
+    position:absolute;
+  }
+  .boardParts {
+    background-color:rgb(3, 3, 3); 
+    width:20px;
+    height:20px;
+    position:relative;
+  }
+  .parts{
+    background-color:white;
+    width:20px;
+    height:20px;
+    position:absolute;
+  }
+  .food{
+    background-color:red;
+    width:20px;
+    height:20px;
+    position:absolute;
+  }
+  </style>
+  
+   <script language="javascript"> 
+      var snake= [{x:240 , y:140}];
+      var foodCoords = { x: Math.floor(Math.random()*25)*20 , y: Math.floor(Math.random()*14)*20};
+      var snakeSpeed= 30;
+      var direction = 0;
+      var score=0;
+   //   var snakeBody = document.createElement("div");
+ setInterval(function () {
+   moveSnake();
+   eat();
+   drawSnake();
+   checkFood();
+   death();
+}, 5000/snakeSpeed);
+
+  function drawSnake(){
+    board.innerHTML="";
+    for(var i =0;i<snake.length;i++) {
+  var snakeBody = document.createElement("div");
+   snakeBody.classList.add("parts");
+   snakeBody.style.left= snake[i].x +"px";
+   snakeBody.style.top= snake[i].y +"px";
+   board.appendChild(snakeBody); 
+    } 
+   
+  }
+
+
+  function drawFood(){
+   var food = document.createElement("div");
+   food.classList.add("food");
+   food.style.left= foodCoords.x +"px";
+   food.style.top= foodCoords.y +"px";
+   board.appendChild(food);
+  }
+  function checkFood(){
+    var foodDiv = document.getElementsByClassName("food");
+    if (foodDiv.length==0){
+     for(var i=0;i<snake.length;i++){
+      while (snake.y==foodCoords.y&&snake.x==foodCoords.x){
+        foodCoords = { x: Math.floor(Math.random()*25)*20 , y: Math.floor(Math.random()*14)*20};
+      }
+    }
+     drawFood()
+    }
+  }
+  function eat(){
+    if (snake[0].x==foodCoords.x && snake[0].y==foodCoords.y){
+      score++;
+      document.getElementById("score").innerHTML="<b> score: "+ score +"</b>"
+      snakeSpeed += 1;
+      foodCoords = { x: Math.floor(Math.random()*25)*20 , y: Math.floor(Math.random()*14)*20};
+      push()
+    } }
+   function push(){
+     var snake1 = []
+     var l = snake.length-1
+     if (l==0){  
+       if (direction==40) {snake1.y=snake[l]+20; snake1.x=snake[l].x; snake.push(snake1)}
+      else if (direction==37) {snake1.y=snake[l].y; snake1.x=snake[l].x-20; snake.push(snake1)}
+      else if (direction==38) {snake1.y=snake[l].y-20; snake1.x=snake[l].x; snake.push(snake1)}
+      else if(direction==39) {snake1.y=snake[l].y; snake1.x=snake[l].x+20; snake.push(snake1)}
+       } else {
+     var px = snake[l].x - snake[l-1].x
+     var py =  snake[l].y - snake[l-1].y
+     if (py==20) { 
+       snake1.x = snake[l].x
+       snake1.y = snake[l].y-20           
+     snake.push(snake1)
+    }
+    if (py==-20) { 
+       snake1.x = snake[l].x
+       snake1.y = snake[l].y+20           
+     snake.push(snake1)
+    }  
+       if (px==20) { 
+       snake1.x = snake[l].x-20
+       snake1.y = snake[l].y           
+     snake.push(snake1)
+    }     
+    if (px==-20) { 
+       snake1.x = snake[l].x+20
+       snake1.y = snake[l].y           
+     snake.push(snake1)
+    } }
+     }
+  function snakeDirection(e){ 
+    if(direction==e.keyCode||direction==e.keyCode+2||direction==e.keyCode-2) {
+
+    }
+    else{ 
+       var d = e.keyCode;
+       if (d==37||d==38||d==39||d==40)
+      direction = e.keyCode;
+  }}
+  var snake1
+  function moveSnake(){
+      if (direction==40||direction==37||direction==38||direction==39){ 
+      for(var i=snake.length-1;i>0;i--){
+       snake[i].x = snake[i-1].x ;
+       snake[i].y = snake[i-1].y ; 
+      }
+      }
+      if (direction==40) snake[0].y+=20;
+      else if (direction==37) snake[0].x-=20;
+      else if (direction==38) snake[0].y-=20;
+      else if(direction==39) snake[0].x+=20;
+    }
+
+  function death(){
+   for(var i=1; i <snake.length-1;i++){
+     if (snake[0].x==snake[i].x && snake[0].y==snake[i].y) {  
+      if(window.confirm("You lose, would you like to retry")){
+      window.location.reload(true);
+   } else return
+  } 
+} 
+  if(snake[0].y==300 || snake[0].y==-20 || snake[0].x==-20 || snake[0].x==520){
+    if(window.confirm("You lose, would you like to retry?")){
+      window.location.reload(true);
+    }  
+     } else return
+    } 
+  </script>
+    <table class="header">
+      <tr> 
+      <td style=" border-top: solid 10px blue;"> <a href="Project.html">Games </a> </td>
+      <td> <a href="AboutUs.html">About Us </a> </td>
+      <td> <a href="ContactUs.html">Contact Us </a> </td>
+      </tr>
+      </table>  </h1>
+
+  <body onload="drawSnake()" , onkeydown="snakeDirection(event)">
+   <table style="margin-left:30%; margin-top:130px"> 
+     <tr>
+       <td>
+         <div id="board" class="board">  </div>
+      </td>
+    </tr>
+  </table> 
+  <div style="margin-left:40%; margin-top:320px" id="score"><b>score: 0</b></div>
+  </body>
+
+  </html>
